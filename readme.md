@@ -8,4 +8,4 @@
 
 * This assessment is not timed. You should plan to set aside approximately 12-24 hours to work on it, but the amount of time spent is not taken into account for your final score.
 
-codearis start date: Thu 26 May - 19:5
+codearis start date: Thu 26 May - 20:00
