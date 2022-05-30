@@ -1,10 +1,11 @@
-import { fetchFromOpenWeather } from "./remote/open-weather";
-
+import { AppContainer } from "./components/app-layout/AppContainer";
+import { AppH1 } from "./components/app-text/AppH1";
+import { Weather } from "./components/Weather";
 export default function App() {
-  fetchFromOpenWeather();
   return (
-    <div>
-      <h1>Hello world!</h1>
-    </div>
+    <AppContainer>
+      <AppH1>Hello world!</AppH1>
+      <Weather />
+    </AppContainer>
   );
 }

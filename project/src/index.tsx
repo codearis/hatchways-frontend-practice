@@ -4,6 +4,15 @@ import "./styles/reset.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppThemeProvider } from "./design/context/context";
+import styled from "styled-components";
+
+const IndexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+`;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,7 +20,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppThemeProvider>
-      <App />
+      <IndexContainer>
+        <App />
+      </IndexContainer>
     </AppThemeProvider>
   </React.StrictMode>
 );
