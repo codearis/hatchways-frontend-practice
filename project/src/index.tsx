@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./styles/reset.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AppThemeProvider } from "./design/context/context";
+import { AppThemeProvider } from "./context/context";
 import styled from "styled-components";
 
 const IndexContainer = styled.div`

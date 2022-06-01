@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { lightTheme } from "../themes";
+import { lightTheme } from "../design/themes";
 import { themeReducer } from "./reducer";
 
 const AppThemeContext = createContext();
@@ -17,6 +17,7 @@ export const AppThemeProvider = ({ children }) => {
       });
     }
   }, []);
+
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(state));
     //create and/or set a new localstorage variable called "state"
