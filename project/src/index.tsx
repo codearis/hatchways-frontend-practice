@@ -4,7 +4,7 @@ import "./styles/reset.css";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AppThemeProvider } from "./context/context";
+import { AppThemeProvider } from "./context/theme/context";
 import styled from "styled-components";
 
 const IndexContainer = styled.div`

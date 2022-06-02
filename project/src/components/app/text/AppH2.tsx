@@ -7,6 +7,7 @@ export const AppH2 = ({ children, ...otherProps }: AppTypes) => {
 };
 
 const H2 = styled.h2<StyledTypes>`
+  margin: 0;
   color: ${(props) => props.color};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.weight};

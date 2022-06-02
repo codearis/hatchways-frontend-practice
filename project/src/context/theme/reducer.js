@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from "../design/themes";
+import { lightTheme, darkTheme } from "../../design/themes";
 
 export const ACTIONS = {
   SET_THEME: "set_theme",

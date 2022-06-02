@@ -15,6 +15,8 @@ export interface StyledTypes {
   isShowing?: boolean | string;
   $isShowing?: boolean | string;
   italic?: string;
+  justifyContent?: string;
+  marginTop?: string | number;
   oblique?: string;
   placeholderColor?: string;
   radialGradient?: string;

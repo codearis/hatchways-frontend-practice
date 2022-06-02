@@ -11,7 +11,7 @@ import { CityListTypes, CityCoordsTypes } from "../types/CityTypes";
 
 import { MapBackground } from "./MapBackground";
 import { fetchWeatherMap } from "../remote/fetchWeatherMap";
-import { useAppTheme } from "../context/context";
+import { useAppTheme } from "../context/theme/context";
 import {
   AppFigure,
   AppH2,
@@ -21,6 +21,7 @@ import {
   AppLoading,
   AppSpan,
 } from "./app/barrel";
+import { StyledTypes } from "../types/StyledTypes";
 
 export const Weather = () => {
   //everything state related
@@ -79,13 +80,7 @@ export const Weather = () => {
   return (
     <WeatherContainer>
       {mapCoords && <MapBackground lat={mapCoords.lat} lon={mapCoords.lon} />}
-      <WeatherTitle>
-        <AppH2 align="center">
-          8 day forecast for <br></br>
-          {weather?.name || ""}
-        </AppH2>
-      </WeatherTitle>
-      <InputContainer>
+      <InputContainer marginTop={weather?.name ? "72px" : "30%"}>
         <InputWrapper>
           <AppInput
             placeholder="Start typing and select a city from the list..."
@@ -101,6 +96,13 @@ export const Weather = () => {
           />
         )}
       </InputContainer>
+
+      {weather?.name && (
+        <WeatherTitle>
+          <AppH4 color="#dc7555">FORECAST FOR THE NEXT 8 DAYS</AppH4>
+          <AppH2 fontSize="44px"> {weather.name || ""}</AppH2>
+        </WeatherTitle>
+      )}
 
       <WeatherWrapper>
         {loading ? (
@@ -146,10 +148,13 @@ const WeatherContainer = styled.section`
 `;
 
 const WeatherTitle = styled.div`
-  padding-top: 64px;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 60px;
+  margin: 32px 0px;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<StyledTypes>`
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -157,6 +162,7 @@ const InputContainer = styled.div`
   max-width: 600px;
   gap: 8px;
   margin: 32px 0px;
+  margin-top: ${(props) => props.marginTop};
   border-radius: 6px;
   box-shadow: 0px 5px 10px 1px #e2e2e2;
 `;
@@ -172,6 +178,7 @@ const WeatherWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
   max-width: 600px;
   padding-bottom: 64px;
   flex-wrap: wrap;

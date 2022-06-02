@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAppTheme } from "../../../context/context";
+import { useAppTheme } from "../../../context/theme/context";
 import { AppTypes } from "../../../types/AppTypes";
 import { CityListTypes } from "../../../types/CityTypes";
 import { StyledTypes } from "../../../types/StyledTypes";

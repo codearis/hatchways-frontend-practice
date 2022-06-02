@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { lightTheme } from "../design/themes";
+import { lightTheme } from "../../design/themes";
 import { themeReducer } from "./reducer";
 
 const AppThemeContext = createContext();
