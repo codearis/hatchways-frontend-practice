@@ -19,6 +19,7 @@ import { MapBackground } from "./MapBackground";
 import { fetchWeatherMap } from "../remote/fetchWeatherMap";
 
 export const Weather = () => {
+  //everything state related
   const [weather, setWeather] = useState<WeatherTypes>();
   const [cityInput, setCityInput] = useState("");
   const [mapCoords, setMapCoords] = useState<CityCoordsTypes>();
@@ -27,8 +28,10 @@ export const Weather = () => {
   const [showList, setShowList] = useState(false);
   const [list, setList] = useState<CityListTypes[]>([{}]);
 
+  //hook calls
   const { colors } = useAppTheme();
 
+  // side-effects
   useEffect(() => {
     const getList = async () => {
       fetchCityList(cityInput).then((data: any) => {
@@ -62,6 +65,7 @@ export const Weather = () => {
     }
   }, [cityInput]);
 
+  // handle functions
   const handleSearch = async (index: number) => {
     const location = `${list[index].name}, ${list[index].state}, ${list[index].country}`;
     setSearchCity(location);
@@ -69,59 +73,56 @@ export const Weather = () => {
   };
 
   return (
-    <>
+    <WeatherContainer>
       {mapCoords && <MapBackground lat={mapCoords.lat} lon={mapCoords.lon} />}
-      <WeatherContainer>
+      <WeatherTitle>
         <AppH2 align="center">
           8 day forecast for <br></br>
-          {weather?.name || "..."}
-        </AppH2>
-        <InputContainer>
-          <InputWrapper>
-            <AppInput
-              // onFocus={() => handleFocusChange()}
-              placeholder="Start typing and select a city from the list..."
-              placeholderColor={colors.secondary}
-              value={cityInput}
-              onChange={(e: any) => setCityInput(e.target.value)}
-            />
-          </InputWrapper>
-          {showList && (
-            <AppInputOptions
-              list={list}
-              onClick={(index: number) => handleSearch(index)}
-            />
-          )}
-        </InputContainer>
+          {weather?.name || ""}
+        </AppH2>{" "}
+      </WeatherTitle>
+      <InputContainer>
+        <InputWrapper>
+          <AppInput
+            placeholder="Start typing and select a city from the list..."
+            placeholderColor={colors.secondary}
+            value={cityInput}
+            onChange={(e: any) => setCityInput(e.target.value)}
+          />
+        </InputWrapper>
+        {showList && (
+          <AppInputOptions
+            list={list}
+            onClick={(index: number) => handleSearch(index)}
+          />
+        )}
+      </InputContainer>
 
-        <WeatherWrapper>
-          {loading ? (
-            <>
-              <AppSpan>Loading...</AppSpan>
-            </>
-          ) : (
-            weather?.daily?.map((forecast, index) => (
-              <WeatherCard key={index}>
-                <AppH4 color={colors.secondary}>
-                  {getDayMonth(forecast.dt)}
-                </AppH4>
-                <AppH4>{getWeekDay(forecast.dt)}</AppH4>
-                <AppFigure
-                  src={getWeatherIcon(forecast.weather[0].icon)}
-                  alt={forecast.weather[0].description}
-                >
-                  {forecast.weather[0].description}
-                </AppFigure>
-                <WeatherCardTemp>
-                  <span>{convertToCelsiusFromKelvin(forecast.temp.min)}°</span>
-                  <span>{convertToCelsiusFromKelvin(forecast.temp.max)}°</span>
-                </WeatherCardTemp>
-              </WeatherCard>
-            ))
-          )}
-        </WeatherWrapper>
-      </WeatherContainer>
-    </>
+      <WeatherWrapper>
+        {loading ? (
+          <>
+            <AppSpan>Loading...</AppSpan>
+          </>
+        ) : (
+          weather?.daily?.map((forecast, index) => (
+            <WeatherCard key={index}>
+              <AppH4 color={colors.secondary}>{getDayMonth(forecast.dt)}</AppH4>
+              <AppH4>{getWeekDay(forecast.dt)}</AppH4>
+              <AppFigure
+                src={getWeatherIcon(forecast.weather[0].icon)}
+                alt={forecast.weather[0].description}
+              >
+                {forecast.weather[0].description}
+              </AppFigure>
+              <WeatherCardTemp>
+                <span>{convertToCelsiusFromKelvin(forecast.temp.min)}°</span>
+                <span>{convertToCelsiusFromKelvin(forecast.temp.max)}°</span>
+              </WeatherCardTemp>
+            </WeatherCard>
+          ))
+        )}
+      </WeatherWrapper>
+    </WeatherContainer>
   );
 };
 
@@ -131,8 +132,11 @@ const WeatherContainer = styled.section`
   width: 100%;
   min-height: 100vh;
   align-items: center;
-  justify-content: center;
-  padding: 80px 16px;
+  padding: 0px 16px;
+`;
+
+const WeatherTitle = styled.div`
+  padding-top: 64px;
 `;
 
 const InputContainer = styled.div`
@@ -154,6 +158,7 @@ const WeatherWrapper = styled.div`
   display: flex;
   width: 100%;
   max-width: 600px;
+  padding-bottom: 64px;
   flex-wrap: wrap;
   gap: 12px;
 `;

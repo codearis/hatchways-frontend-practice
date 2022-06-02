@@ -5,7 +5,8 @@ import { CityCoordsTypes } from "../types/CityTypes";
 
 export const MapBackground = (location: CityCoordsTypes) => {
   const api = process.env.REACT_APP_OPEN_API;
-  const url = `https://tile.openweathermap.org/map/precipitation_new/10/{x}/{y}.png?appid=${api}`;
+  const cloudLayerUrl = `https://tile.openweathermap.org/map/precipitation_new/10/{x}/{y}.png?appid=${api}`;
+  const groundLayerUrl = `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`;
 
   function ChangeMapView({ coords }: any) {
     const map = useMap();
@@ -13,7 +14,6 @@ export const MapBackground = (location: CityCoordsTypes) => {
     return null;
   }
 
-  const url1 = `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`;
   return (
     <Map>
       <MapContainer
@@ -23,10 +23,10 @@ export const MapBackground = (location: CityCoordsTypes) => {
         style={{ position: "relative", width: "100%", height: "100%" }}
       >
         <div style={{ position: "absolute", zIndex: -1 }}>
-          <TileLayer url={url1} />
+          <TileLayer url={groundLayerUrl} />
         </div>
         <div style={{ position: "absolute", zIndex: 0 }}>
-          <TileLayer url={url} />
+          <TileLayer url={cloudLayerUrl} />
         </div>
         <ChangeMapView coords={location} />
       </MapContainer>
@@ -36,7 +36,7 @@ export const MapBackground = (location: CityCoordsTypes) => {
 
 const Map = styled.div<StyledTypes>`
   width: 100vw;
-  height: 100vh;
+  height: 120%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -45,5 +45,9 @@ const Map = styled.div<StyledTypes>`
   opacity: 0.4;
   > img {
     filter: grayscale(20%);
+  }
+
+  @media (max-width: 480px) {
+    height: 200%;
   }
 `;
