@@ -34,10 +34,9 @@ const InputOptions = styled.div<StyledTypes>`
   display: flex;
   width: 100%;
   flex: 1 1;
+  border-top: 1px solid gray;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid gray;
-  border-radius: 6px;
 `;
 
 const Option = styled.p<StyledTypes>`

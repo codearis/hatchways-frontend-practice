@@ -6,9 +6,7 @@ import { getWeekDay } from "../utils/getWeekDay";
 import { convertToCelsiusFromKelvin } from "../utils/tempConverter";
 import { getDayMonth } from "../utils/getDayMonth";
 import { getWeatherIcon } from "../utils/getWeatherIcon";
-
 import { fetchCityList } from "../remote/fetchCityList";
-
 import { CityListTypes, CityCoordsTypes } from "../types/CityTypes";
 
 import { MapBackground } from "./MapBackground";
@@ -20,6 +18,7 @@ import {
   AppH4,
   AppInput,
   AppInputOptions,
+  AppLoading,
   AppSpan,
 } from "./app/barrel";
 
@@ -27,11 +26,11 @@ export const Weather = () => {
   //everything state related
   const [weather, setWeather] = useState<WeatherTypes>();
   const [cityInput, setCityInput] = useState("");
-  const [mapCoords, setMapCoords] = useState<CityCoordsTypes>();
   const [searchCity, setSearchCity] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showList, setShowList] = useState(false);
+  const [mapCoords, setMapCoords] = useState<CityCoordsTypes>();
   const [list, setList] = useState<CityListTypes[]>([{}]);
+  const [showList, setShowList] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //hook calls
   const { colors } = useAppTheme();
@@ -70,7 +69,7 @@ export const Weather = () => {
     }
   }, [cityInput]);
 
-  // handle functions
+  // handlers
   const handleSearch = async (index: number) => {
     const location = `${list[index].name}, ${list[index].state}, ${list[index].country}`;
     setSearchCity(location);
@@ -84,7 +83,7 @@ export const Weather = () => {
         <AppH2 align="center">
           8 day forecast for <br></br>
           {weather?.name || ""}
-        </AppH2>{" "}
+        </AppH2>
       </WeatherTitle>
       <InputContainer>
         <InputWrapper>
@@ -105,9 +104,7 @@ export const Weather = () => {
 
       <WeatherWrapper>
         {loading ? (
-          <>
-            <AppSpan>Loading...</AppSpan>
-          </>
+          <AppLoading />
         ) : (
           weather?.daily?.map((forecast, index) => (
             <WeatherCard key={index}>
@@ -153,12 +150,15 @@ const WeatherTitle = styled.div`
 `;
 
 const InputContainer = styled.div`
+  background: #fff;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 600px;
   gap: 8px;
   margin: 32px 0px;
+  border-radius: 6px;
+  box-shadow: 0px 5px 10px 1px #e2e2e2;
 `;
 
 const InputWrapper = styled.div`
@@ -169,11 +169,13 @@ const InputWrapper = styled.div`
 
 const WeatherWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 600px;
   padding-bottom: 64px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 `;
 
 const WeatherCard = styled.div`

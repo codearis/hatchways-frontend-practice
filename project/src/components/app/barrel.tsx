@@ -9,6 +9,7 @@ import { AppH3 } from "./text/AppH3";
 import { AppH4 } from "./text/AppH4";
 import { AppSpan } from "./text/AppSpan";
 import { AppParagraph } from "./text/AppParagraph";
+import { AppLoading } from "./loading/AppLoading";
 
 export {
   AppButton,
@@ -22,4 +23,5 @@ export {
   AppH4,
   AppSpan,
   AppParagraph,
+  AppLoading,
 };

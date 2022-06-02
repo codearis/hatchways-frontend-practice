@@ -7,14 +7,12 @@ export const AppInput = ({ children, ...otherProps }: AppTypes) => {
 };
 
 const Input = styled.input<StyledTypes>`
-  background: #fff;
   display: flex;
   flex: 1 1;
-  border: 1px solid black;
-  border-radius: 6px;
-  padding: 2px 6px;
+  /* border-bottom: 1px solid black; */
+  padding: 2px 10px;
   margin: 0;
-  height: 40px;
+  height: 44px;
   ::placeholder {
     color: ${(props) => props.placeholderColor};
   }
