@@ -9,5 +9,4 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0px 16px;
 `;

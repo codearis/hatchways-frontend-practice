@@ -7,6 +7,7 @@ export const AppInput = ({ children, ...otherProps }: AppTypes) => {
 };
 
 const Input = styled.input<StyledTypes>`
+  background: #fff;
   display: flex;
   flex: 1 1;
   border: 1px solid black;
