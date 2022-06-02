@@ -3,3 +3,9 @@ export interface CityListTypes {
   state?: string;
   country?: string;
 }
+
+export interface CityCoordsTypes {
+  name?: string;
+  lat: number;
+  lon: number;
+}

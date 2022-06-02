@@ -1,4 +1,5 @@
 export interface StyledTypes {
+  align?: string;
   backgroundColor?: string;
   backgroundImage?: string;
   backgroundUrl?: string;
@@ -9,6 +10,7 @@ export interface StyledTypes {
   detailColor?: string;
   fontSize?: string | number;
   fontWeight?: string | number;
+  height?: string | number;
   hoverColor?: string;
   isShowing?: boolean | string;
   $isShowing?: boolean | string;
@@ -19,5 +21,6 @@ export interface StyledTypes {
   shadowColor?: string;
   size?: string | number;
   weight?: string | number;
+  width?: string | number;
   url?: string;
 }

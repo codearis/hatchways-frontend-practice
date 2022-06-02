@@ -11,16 +11,20 @@ import { AppH4 } from "./app/text/AppH4";
 import { useAppTheme } from "../context/context";
 import { AppH2 } from "./app/text/AppH2";
 import { AppInput } from "./app/input/AppInput";
-import { AppButton } from "./app/button/AppButton";
 import { AppInputOptions } from "./app/input/AppInputOptions";
 import { fetchCityList } from "../remote/fetchCityList";
-import { CityListTypes } from "../types/CityTypes";
+import { CityListTypes, CityCoordsTypes } from "../types/CityTypes";
+import { AppSpan } from "./app/text/AppSpan";
+import { MapBackground } from "./MapBackground";
+import { fetchWeatherMap } from "../remote/fetchWeatherMap";
 
 export const Weather = () => {
   const [weather, setWeather] = useState<WeatherTypes>();
   const [cityInput, setCityInput] = useState("");
-  const [showOptions, setShowOptions] = useState(false);
+  const [mapCity, setMapCity] = useState<CityCoordsTypes>({ lat: 0, lon: 0 });
   const [searchCity, setSearchCity] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showList, setShowList] = useState(false);
   const [list, setList] = useState<CityListTypes[]>([{}]);
 
   useEffect(() => {
@@ -34,9 +38,13 @@ export const Weather = () => {
 
   useEffect(() => {
     if (searchCity) {
+      setShowList(true);
       const getData = async () => {
+        setLoading(true);
         const data = await fetchWeather(searchCity);
         setWeather(data);
+        setLoading(false);
+        setCityInput("");
       };
       getData();
     } else {
@@ -44,71 +52,85 @@ export const Weather = () => {
     }
   }, [searchCity]);
 
-  console.log(searchCity);
+  useEffect(() => {
+    if (cityInput.length > 2) {
+      setShowList(true);
+    } else {
+      setShowList(false);
+    }
+  }, [cityInput]);
 
   const { colors } = useAppTheme();
 
-  const handleFocusChange = () => {
-    setShowOptions(true);
-  };
-
-  const handleSearch = (index: number) => {
-    setSearchCity(
-      `${list[index].name}, ${list[index].state}, ${list[index].country}`
-    );
-    setShowOptions(false);
+  const handleSearch = async (index: number) => {
+    const location = `${list[index].name}, ${list[index].state}, ${list[index].country}`;
+    setSearchCity(location);
+    const coords = await fetchWeatherMap(location);
+    setMapCity(coords);
+    console.log(coords);
   };
 
   return (
     <WeatherContainer>
-      <AppH2>8 day forecast for {weather?.name || "..."}</AppH2>
+      <MapBackground lat={mapCity.lat} lon={mapCity.lon} />
+      <AppH2 align="center">
+        8 day forecast for <br></br>
+        {weather?.name || "..."}
+      </AppH2>
       <InputContainer>
         <InputWrapper>
           <AppInput
-            onFocus={() => handleFocusChange()}
+            // onFocus={() => handleFocusChange()}
             placeholder="Start typing and select a city from the list..."
             placeholderColor={colors.secondary}
             value={cityInput}
             onChange={(e: any) => setCityInput(e.target.value)}
           />
-          {/* <AppButton>Search</AppButton> */}
         </InputWrapper>
-        <AppInputOptions
-          showOptions={showOptions}
-          list={list}
-          onClick={(index: number) => handleSearch(index)}
-        />
+        {showList && (
+          <AppInputOptions
+            list={list}
+            onClick={(index: number) => handleSearch(index)}
+          />
+        )}
       </InputContainer>
 
       <WeatherWrapper>
-        {weather?.daily?.map((forecast, index) => (
-          <WeatherCard key={index}>
-            <AppH4 color={colors.secondary}>{getDayMonth(forecast.dt)}</AppH4>
-            <AppH4>{getWeekDay(forecast.dt)}</AppH4>
-            <AppFigure
-              src={getWeatherIcon(forecast.weather[0].icon)}
-              alt={forecast.weather[0].description}
-            >
-              {forecast.weather[0].description}
-            </AppFigure>
-            <WeatherCardTemp>
-              <span>{convertToCelsiusFromKelvin(forecast.temp.min)}°</span>
-              <span>{convertToCelsiusFromKelvin(forecast.temp.max)}°</span>
-            </WeatherCardTemp>
-          </WeatherCard>
-        ))}
+        {loading ? (
+          <>
+            <AppSpan>Loading...</AppSpan>
+          </>
+        ) : (
+          weather?.daily?.map((forecast, index) => (
+            <WeatherCard key={index}>
+              <AppH4 color={colors.secondary}>{getDayMonth(forecast.dt)}</AppH4>
+              <AppH4>{getWeekDay(forecast.dt)}</AppH4>
+              <AppFigure
+                src={getWeatherIcon(forecast.weather[0].icon)}
+                alt={forecast.weather[0].description}
+              >
+                {forecast.weather[0].description}
+              </AppFigure>
+              <WeatherCardTemp>
+                <span>{convertToCelsiusFromKelvin(forecast.temp.min)}°</span>
+                <span>{convertToCelsiusFromKelvin(forecast.temp.max)}°</span>
+              </WeatherCardTemp>
+            </WeatherCard>
+          ))
+        )}
       </WeatherWrapper>
     </WeatherContainer>
   );
 };
 
-// styling
-
 const WeatherContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
   align-items: center;
+  justify-content: center;
+  padding: 80px 0px;
 `;
 
 const InputContainer = styled.div`
@@ -145,6 +167,11 @@ const WeatherCard = styled.div`
   padding: 8px;
   border: 1px solid black;
   border-radius: 6px;
+
+  @media (max-width: 480px) {
+    flex: 1 1 none;
+    max-width: none;
+  }
 `;
 
 const WeatherCardTemp = styled.div`

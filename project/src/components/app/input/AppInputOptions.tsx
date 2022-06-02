@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useAppTheme } from "../../../context/context";
 import { AppTypes } from "../../../types/AppTypes";
 import { CityListTypes } from "../../../types/CityTypes";
 import { StyledTypes } from "../../../types/StyledTypes";
@@ -10,18 +11,22 @@ export const AppInputOptions = ({
   onClick,
   ...otherProps
 }: AppTypes) => {
+  const { colors } = useAppTheme();
+
   return (
-    showOptions && (
-      <InputOptions {...otherProps}>
-        {list
-          ? list.map((option: CityListTypes, index: number) => (
-              <Option key={index} onClick={() => onClick(index)}>
-                {option.name}, {option.state}, {option.country}
-              </Option>
-            ))
-          : null}
-      </InputOptions>
-    )
+    <InputOptions {...otherProps}>
+      {list
+        ? list.map((option: CityListTypes, index: number) => (
+            <Option
+              key={index}
+              onClick={() => onClick(index)}
+              hoverColor={`${colors.secondary}11`}
+            >
+              {option.name}, {option.state}, {option.country}
+            </Option>
+          ))
+        : null}
+    </InputOptions>
   );
 };
 
@@ -44,4 +49,9 @@ const Option = styled.p<StyledTypes>`
   margin: 0;
   padding: 6px 8px;
   cursor: pointer;
+  border-radius: 6px;
+
+  :hover {
+    background: ${(props) => props.hoverColor};
+  }
 `;

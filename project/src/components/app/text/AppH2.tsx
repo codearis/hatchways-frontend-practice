@@ -10,4 +10,5 @@ const H2 = styled.h2<StyledTypes>`
   color: ${(props) => props.color};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.weight};
+  text-align: ${(props) => props.align};
 `;
