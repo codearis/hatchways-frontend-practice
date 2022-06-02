@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { fetchWeather } from "../remote/fetchWeather";
 import { WeatherTypes } from "../types/WeatherTypes";
 import { getWeekDay } from "../utils/getWeekDay";
 import { convertToCelsiusFromKelvin } from "../utils/tempConverter";
-import styled from "styled-components";
 import { getDayMonth } from "../utils/getDayMonth";
 import { getWeatherIcon } from "../utils/getWeatherIcon";
-import { AppFigure } from "./app/img/AppFigure";
-import { AppH4 } from "./app/text/AppH4";
-import { useAppTheme } from "../context/context";
-import { AppH2 } from "./app/text/AppH2";
-import { AppInput } from "./app/input/AppInput";
-import { AppInputOptions } from "./app/input/AppInputOptions";
+
 import { fetchCityList } from "../remote/fetchCityList";
+
 import { CityListTypes, CityCoordsTypes } from "../types/CityTypes";
-import { AppSpan } from "./app/text/AppSpan";
+
 import { MapBackground } from "./MapBackground";
 import { fetchWeatherMap } from "../remote/fetchWeatherMap";
+import { useAppTheme } from "../context/context";
+import {
+  AppFigure,
+  AppH2,
+  AppH4,
+  AppInput,
+  AppInputOptions,
+  AppSpan,
+} from "./app/barrel";
 
 export const Weather = () => {
   //everything state related
@@ -107,7 +112,11 @@ export const Weather = () => {
           weather?.daily?.map((forecast, index) => (
             <WeatherCard key={index}>
               <AppH4 color={colors.secondary}>{getDayMonth(forecast.dt)}</AppH4>
-              <AppH4>{getWeekDay(forecast.dt)}</AppH4>
+              {index === 0 ? (
+                <AppH4>Today</AppH4>
+              ) : (
+                <AppH4>{getWeekDay(forecast.dt)}</AppH4>
+              )}
               <AppFigure
                 src={getWeatherIcon(forecast.weather[0].icon)}
                 alt={forecast.weather[0].description}
@@ -115,8 +124,12 @@ export const Weather = () => {
                 {forecast.weather[0].description}
               </AppFigure>
               <WeatherCardTemp>
-                <span>{convertToCelsiusFromKelvin(forecast.temp.min)}°</span>
-                <span>{convertToCelsiusFromKelvin(forecast.temp.max)}°</span>
+                <AppSpan>
+                  {convertToCelsiusFromKelvin(forecast.temp.min)}°
+                </AppSpan>
+                <AppSpan>
+                  {convertToCelsiusFromKelvin(forecast.temp.max)}°
+                </AppSpan>
               </WeatherCardTemp>
             </WeatherCard>
           ))
