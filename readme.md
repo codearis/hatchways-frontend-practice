@@ -22,6 +22,8 @@ Since the application request was simple with hard coded values, I decided to ex
 
 You can also check a live demo in the link below (if the application won't work the number of requests reached the limit for the free plan)
 
+https://codearis-hatchways-assessment.vercel.app/
+
 ### Techs used
 
 - [Typescript](https://www.typescriptlang.org/)
