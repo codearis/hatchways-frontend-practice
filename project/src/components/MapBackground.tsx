@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { StyledTypes } from "../types/StyledTypes";
 import { CityCoordsTypes } from "../types/CityTypes";
+import { LatLngExpression } from "leaflet";
 
 export const MapBackground = (location: CityCoordsTypes) => {
   //
@@ -10,7 +11,7 @@ export const MapBackground = (location: CityCoordsTypes) => {
   const cloudLayerUrl = `https://tile.openweathermap.org/map/precipitation_new/10/{x}/{y}.png?appid=${api}`;
   const groundLayerUrl = `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`;
 
-  function ChangeMapView({ coords }: any) {
+  function ChangeMapView(coords: LatLngExpression) {
     const map = useMap();
     map.flyTo(coords, map.getZoom());
     return null;
@@ -22,7 +23,7 @@ export const MapBackground = (location: CityCoordsTypes) => {
         <></>
       ) : (
         <MapContainerStyled
-          center={[location.lat, location.lon]}
+          center={[location.lat, location.lng]}
           zoom={10}
           scrollWheelZoom={false}
           zoomControl={false}
@@ -33,7 +34,7 @@ export const MapBackground = (location: CityCoordsTypes) => {
           <MapLayer zIndex={0}>
             <TileLayer url={cloudLayerUrl} />
           </MapLayer>
-          <ChangeMapView coords={location} />
+          <ChangeMapView lat={location.lat} lng={location.lng} />
         </MapContainerStyled>
       )}
     </Map>

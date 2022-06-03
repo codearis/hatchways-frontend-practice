@@ -1,7 +1,7 @@
 interface Coordinates {
   name?: string;
   lat?: number;
-  lon?: number;
+  lng?: number;
 }
 
 export const fetchGeolocation = async (city: string) => {
@@ -18,7 +18,7 @@ export const fetchGeolocation = async (city: string) => {
               data[0].state ? data[0].state : data[0].country
             }`,
             lat: data[0].lat,
-            lon: data[0].lon,
+            lng: data[0].lon,
           };
           return result;
         })

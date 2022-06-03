@@ -1,4 +1,4 @@
-import { CityListTypes } from "../types/CityTypes";
+import { CityFetchResponse, CityListTypes } from "../types/CityTypes";
 
 export const fetchCityList = async (city: string) => {
   const api = process.env.REACT_APP_OPEN_API;
@@ -10,10 +10,10 @@ export const fetchCityList = async (city: string) => {
         .json()
         .then((data) => {
           let result: CityListTypes[] = [];
-          data.forEach((city: any) => {
+          data.forEach((city: CityFetchResponse) => {
             result.push({
               name: city.name,
-              state: city.state || null,
+              state: city.state || undefined,
               country: city.country,
             });
           });

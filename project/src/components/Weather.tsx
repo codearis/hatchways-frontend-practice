@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { fetchWeather } from "../remote/fetchWeather";
 import { WeatherTypes } from "../types/WeatherTypes";
@@ -28,7 +28,7 @@ export const Weather = () => {
   const [cityInput, setCityInput] = useState("");
   const [searchCity, setSearchCity] = useState("");
   const [mapCoords, setMapCoords] = useState<CityCoordsTypes>();
-  const [list, setList] = useState<CityListTypes[]>([{}]);
+  const [list, setList] = useState<void | CityListTypes[]>();
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,7 @@ export const Weather = () => {
 
   useEffect(() => {
     const getList = async () => {
-      fetchCityList(cityInput).then((data: any) => {
+      fetchCityList(cityInput).then((data) => {
         setList(data);
       });
     };
@@ -69,23 +69,30 @@ export const Weather = () => {
 
   // handlers
   const handleSearch = async (index: number) => {
-    const location = `${`${list[index].name}, `}${
-      list[index].state && `${list[index].state}, `
-    }${list[index].country}`;
-    setSearchCity(location);
-    fetchWeatherMap(location).then((data) => setMapCoords(data));
+    if (list) {
+      const location = `${`${list[index].name}, `}${
+        list[index].state && `${list[index].state}, `
+      }${list[index].country}`;
+
+      setSearchCity(location);
+      fetchWeatherMap(location).then((data) => setMapCoords(data));
+    } else {
+      return;
+    }
   };
 
   return (
     <WeatherContainer>
-      {mapCoords && <MapBackground lat={mapCoords.lat} lon={mapCoords.lon} />}
+      {mapCoords && <MapBackground lat={mapCoords.lat} lng={mapCoords.lng} />}
       <InputContainer marginTop={weather?.name ? "72px" : "30%"}>
         <InputWrapper>
           <AppInput
             placeholder="Start typing and select a city from the list..."
             placeholderColor={colors.secondary}
             value={cityInput}
-            onChange={(e: any) => setCityInput(e.target.value)}
+            onChange={(e: ChangeEvent<{ value: string }>) =>
+              setCityInput(e.target.value)
+            }
           />
         </InputWrapper>
         {showList && (
