@@ -1,4 +1,4 @@
-import { keyframes } from "styled-components";
+import { css, keyframes } from "styled-components";
 
 export const rotate = keyframes`
   from {
@@ -18,5 +18,14 @@ export const forwardAndBack = keyframes`
   }
   100% {
     transform: translateX(0%);
+  }
+`;
+
+export const rotate3d = keyframes`
+  from {
+    transform: rotateY(45deg);
+  }
+  to {
+    transform: rotateY(225deg);
   }
 `;

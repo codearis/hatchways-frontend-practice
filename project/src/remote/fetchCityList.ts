@@ -13,7 +13,7 @@ export const fetchCityList = async (city: string) => {
           data.forEach((city: any) => {
             result.push({
               name: city.name,
-              state: city.state,
+              state: city.state || null,
               country: city.country,
             });
           });

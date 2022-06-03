@@ -1,5 +1,8 @@
+import { Keyframes } from "styled-components";
+
 export interface StyledTypes {
   align?: string;
+  animation?: Keyframes;
   backgroundColor?: string;
   backgroundImage?: string;
   backgroundUrl?: string;
@@ -25,4 +28,5 @@ export interface StyledTypes {
   weight?: string | number;
   width?: string | number;
   url?: string;
+  zIndex?: string | number;
 }

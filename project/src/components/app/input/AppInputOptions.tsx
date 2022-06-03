@@ -22,7 +22,9 @@ export const AppInputOptions = ({
               onClick={() => onClick(index)}
               hoverColor={`${colors.secondary}11`}
             >
-              {option.name}, {option.state}, {option.country}
+              {/* {option.name}, {option.state}, {option.country} */}
+              {option.name}, {option.state ? `${option.state}, ` : null}
+              {option.country}
             </Option>
           ))
         : null}

@@ -24,7 +24,6 @@ import {
 import { StyledTypes } from "../types/StyledTypes";
 
 export const Weather = () => {
-  //everything state related
   const [weather, setWeather] = useState<WeatherTypes>();
   const [cityInput, setCityInput] = useState("");
   const [searchCity, setSearchCity] = useState("");
@@ -33,10 +32,8 @@ export const Weather = () => {
   const [showList, setShowList] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  //hook calls
   const { colors } = useAppTheme();
 
-  // side-effects
   useEffect(() => {
     const getList = async () => {
       fetchCityList(cityInput).then((data: any) => {
@@ -72,7 +69,9 @@ export const Weather = () => {
 
   // handlers
   const handleSearch = async (index: number) => {
-    const location = `${list[index].name}, ${list[index].state}, ${list[index].country}`;
+    const location = `${`${list[index].name}, `}${
+      list[index].state && `${list[index].state}, `
+    }${list[index].country}`;
     setSearchCity(location);
     fetchWeatherMap(location).then((data) => setMapCoords(data));
   };
@@ -162,7 +161,6 @@ const InputContainer = styled.div<StyledTypes>`
   max-width: 600px;
   gap: 8px;
   margin: 32px 0px;
-  margin-top: ${(props) => props.marginTop};
   border-radius: 6px;
   box-shadow: 0px 5px 10px 1px #e2e2e2;
 `;
@@ -185,7 +183,7 @@ const WeatherWrapper = styled.div`
   gap: 16px;
 `;
 
-const WeatherCard = styled.div`
+const WeatherCard = styled.div<StyledTypes>`
   width: 100%;
   display: flex;
   max-width: 140px;

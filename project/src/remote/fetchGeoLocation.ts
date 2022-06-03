@@ -14,7 +14,9 @@ export const fetchGeolocation = async (city: string) => {
         .json()
         .then((data) => {
           const result: Coordinates = {
-            name: `${data[0].name}/${data[0].state}`,
+            name: `${data[0].name}/${
+              data[0].state ? data[0].state : data[0].country
+            }`,
             lat: data[0].lat,
             lon: data[0].lon,
           };
