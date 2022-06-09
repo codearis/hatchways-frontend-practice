@@ -16,7 +16,7 @@ More info about this assessment can be found [here](https://hatchways.notion.sit
 
 Since the application request was simple with hard coded values, I decided to expand it promoting a better user experience with dynamic values, using the same tools provided with a personal touch. These are the results:
 
-![Approach](https://github.com/codearis/weather-app/main/images/app.png)
+![Approach](https://github.com/codearis/weather-app/blob/main/images/app.png?raw=true)
 
 You can also check a live demo in the link below (if the application won't work the number of requests reached the limit for the free plan)
 
