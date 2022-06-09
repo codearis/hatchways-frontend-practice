@@ -1,9 +1,9 @@
-<h3>Hatchways - Frontend Assessment Practice Project</h3>
+<h3>Weather App</h3>
 
   <p>
-    The goal of this assessment was to replicate the frontend application provided (as close as
-possible). You are allowed to use any frontend framework (React.js, Vue.js, etc.) or use
-plain Javascript, HTML, and CSS. We recommend using a frontend framework as parts of the assessment will be difficult without it.
+    This app was built following an asssessment for Hatchways - Frontend Practice Project, where the goal was to replicate the frontend application provided (as close as
+possible). It was allowed to use any frontend framework (React.js, Vue.js, etc.) or use
+plain Javascript, HTML, and CSS.
   </p>
   
  The finished application should look like this:
