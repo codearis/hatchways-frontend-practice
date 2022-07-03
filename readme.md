@@ -1,6 +1,6 @@
 ## Weather App
 
-[Live demo](https://codearis-hatchways-assessment.vercel.app)
+Live demo: https://codearis-weather-app.vercel.app/
 
 This project was built following an asssessment for Hatchways - Frontend Practice Project, where the goal was to replicate the frontend application provided (as close as
 possible). It was allowed to use any frontend framework (React.js, Vue.js, etc.) or use
