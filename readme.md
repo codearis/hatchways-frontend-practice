@@ -1,4 +1,4 @@
-## Weather App
+# Project - Weather App
 
 Live demo: https://codearis-weather-app.vercel.app/
 
@@ -16,7 +16,7 @@ More info about this assessment can be found [here](https://hatchways.notion.sit
 
 Since the application request was simple with hard coded values, I decided to expand it promoting a better user experience with dynamic values, using the same tools provided with a personal touch. These are the results:
 
-![Approach](https://github.com/codearis/weather-app/blob/main/images/app.png?raw=true)
+![Approach](https://raw.githubusercontent.com/codearis/weather-app/main/images/app.png)
 
 You can also check a live demo in the link below (if the application won't work the number of requests reached the limit for the free plan)
 
@@ -66,5 +66,3 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 - [Twitter](https://twitter.com/codearis)
 - [LinkedIn](https://www.linkedin.com/in/ariel-christmann/)
 - codearis@icloud.com
-
-![logo](https://github.com/codearis/codearis/main/codearis-lg.svg#gh-light-mode-only)
